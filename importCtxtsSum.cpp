@@ -39,7 +39,10 @@ int main (int argc, char *argv[])
 
     ctxt1File.read(byteCtxt1, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
     ctxt2File.read(byteCtxt2, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);    
-    
+
+    ctxt1File.close();
+    ctxt2File.close();
+
     paillier_ciphertext_t* ctxt1 = paillier_ciphertext_from_bytes((void*)byteCtxt1, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
     paillier_ciphertext_t* ctxt2 = paillier_ciphertext_from_bytes((void*)byteCtxt2, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
 
