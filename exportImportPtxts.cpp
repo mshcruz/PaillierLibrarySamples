@@ -38,6 +38,7 @@ int main (int argc, char *argv[])
     std::cout << "Message 1: " << message1 << std::endl;
     std::cout << "Message 2: " << message2 << std::endl;    
 
+    /* WRITING PHASE*/
     {
 	// Create plaintext objects from imported messages
 	paillier_plaintext_t* ptxt1 = paillier_plaintext_from_ui(std::atoi(message1.c_str()));
@@ -72,34 +73,34 @@ int main (int argc, char *argv[])
 
     /* READING PHASE*/
     {
-    // Read plaintext from disk
-    std::fstream ptxt1File("binPlaintext1.txt", std::fstream::in|std::fstream::binary);
-    std::fstream ptxt2File("binPlaintext2.txt", std::fstream::in|std::fstream::binary);
+	// Read plaintext from disk
+	std::fstream ptxt1File("binPlaintext1.txt", std::fstream::in|std::fstream::binary);
+	std::fstream ptxt2File("binPlaintext2.txt", std::fstream::in|std::fstream::binary);
 
-    assert(ptxt1File.is_open());
-    assert(ptxt2File.is_open());
+	assert(ptxt1File.is_open());
+	assert(ptxt2File.is_open());
 
-    // The length of the ciphertext is twice the length of the key
-    char* bytePtxt1 = (char*)malloc(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
-    char* bytePtxt2 = (char*)malloc(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
+	// The length of the ciphertext is twice the length of the key
+	char* bytePtxt1 = (char*)malloc(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
+	char* bytePtxt2 = (char*)malloc(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
 
-    ptxt1File.read(bytePtxt1, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
-    ptxt2File.read(bytePtxt2, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);    
+	ptxt1File.read(bytePtxt1, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
+	ptxt2File.read(bytePtxt2, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);    
 
-    ptxt1File.close();
-    ptxt2File.close();
+	ptxt1File.close();
+	ptxt2File.close();
 
-    paillier_plaintext_t* ptxt1 = paillier_plaintext_from_bytes((void*)bytePtxt1, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
-    paillier_plaintext_t* ptxt2 = paillier_plaintext_from_bytes((void*)bytePtxt2, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
+	paillier_plaintext_t* ptxt1 = paillier_plaintext_from_bytes((void*)bytePtxt1, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
+	paillier_plaintext_t* ptxt2 = paillier_plaintext_from_bytes((void*)bytePtxt2, PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
 
-    gmp_printf("Plaintext1 object read: %Zd\n", ptxt1);
-    gmp_printf("Plaintext2 object read: %Zd\n", ptxt2);    
+	gmp_printf("Plaintext1 object read: %Zd\n", ptxt1);
+	gmp_printf("Plaintext2 object read: %Zd\n", ptxt2);    
 	
-    // Cleaning up
-    paillier_freeplaintext(ptxt1);
-    paillier_freeplaintext(ptxt2);
-    free(bytePtxt1);
-    free(bytePtxt2);    
+	// Cleaning up
+	paillier_freeplaintext(ptxt1);
+	paillier_freeplaintext(ptxt2);
+	free(bytePtxt1);
+	free(bytePtxt2);    
     }    
     
     // Cleaning up
