@@ -54,7 +54,7 @@ int main (int argc, char *argv[])
 	assert(ptxt1File.is_open());
 	assert(ptxt2File.is_open());
 
-	// The length of the ciphertext is twice the length of the key
+	// The length of the plaintext is twice the length of the key
 	char* bytePtxt1 = (char*)paillier_plaintext_to_bytes(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2, ptxt1);
 	char* bytePtxt2 = (char*)paillier_plaintext_to_bytes(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2, ptxt2);
 
@@ -80,7 +80,7 @@ int main (int argc, char *argv[])
 	assert(ptxt1File.is_open());
 	assert(ptxt2File.is_open());
 
-	// The length of the ciphertext is twice the length of the key
+	// The length of the binary plaintext is twice the length of the key
 	char* bytePtxt1 = (char*)malloc(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
 	char* bytePtxt2 = (char*)malloc(PAILLIER_BITS_TO_BYTES(pubKey->bits)*2);
 
